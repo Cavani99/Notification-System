@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Builder
@@ -18,6 +19,10 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "title")
+    @NotNull
+    private String title;
+
     @Column(name = "message")
     @NotNull
     private String message;
@@ -29,4 +34,15 @@ public class Notification {
     @Column(name = "type")
     @NotNull
     private NotificationType type;
+
+    @Column(name = "created_on")
+    private LocalDateTime createdOn;
+
+    @ManyToOne
+    @JoinColumn(name = "sender", referencedColumnName = "id")
+    private User sender;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "receiver", referencedColumnName = "id")
+    private User receiver;
 }
