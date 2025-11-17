@@ -1,8 +1,10 @@
 package main.web;
 
+import main.model.Notification;
 import main.model.User;
 import main.service.NotificationService;
 import main.service.UserService;
+import main.web.dto.CreateNotificationRequest;
 import main.web.dto.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,13 @@ public class NotificationController {
         User user = userService.addUser(createUserRequest);
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/notification")
+    public ResponseEntity<Notification> createNotification(@RequestBody CreateNotificationRequest createNotificationRequest) {
+        Notification notification = notificationService.addNotification(createNotificationRequest);
+
+        return new ResponseEntity<>(notification, HttpStatus.CREATED);
     }
 
 }
