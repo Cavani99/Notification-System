@@ -7,7 +7,9 @@ import main.repository.UserRepository;
 import main.web.dto.CreateNotificationRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class NotificationService {
@@ -20,6 +22,10 @@ public class NotificationService {
         this.userRepository = userRepository;
     }
 
+    public Notification findById(UUID id) {
+        return notificationRepository.findById(id).orElseThrow(() -> new RuntimeException("Notification does not exist!"));
+    }
+
     public Notification addNotification(CreateNotificationRequest createNotificationRequest) {
         Notification notification = new Notification();
 
@@ -27,6 +33,7 @@ public class NotificationService {
         notification.setMessage(createNotificationRequest.getMessage());
         notification.setLink(createNotificationRequest.getLink());
         notification.setType(createNotificationRequest.getType());
+        notification.setCompleted(false);
 
         if (createNotificationRequest.getSenderId() != null) {
             Optional<User> sender = userRepository.findByUserId(createNotificationRequest.getSenderId());
@@ -49,5 +56,15 @@ public class NotificationService {
         notification.setReceiver(receiver.get());
 
         return notificationRepository.save(notification);
+    }
+
+    public void completeNotification(UUID id) {
+        Notification notification = findById(id);
+        notification.setCompleted(true);
+        notificationRepository.save(notification);
+    }
+
+    public List<Notification> findAllByUser(UUID userId) {
+        return notificationRepository.findAllByReceiverId(userId);
     }
 }

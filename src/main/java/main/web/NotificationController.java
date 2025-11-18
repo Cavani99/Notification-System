@@ -6,10 +6,14 @@ import main.service.NotificationService;
 import main.service.UserService;
 import main.web.dto.CreateNotificationRequest;
 import main.web.dto.CreateUserRequest;
+import main.web.dto.NotificationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/notification/v1")
@@ -37,6 +41,15 @@ public class NotificationController {
         Notification notification = notificationService.addNotification(createNotificationRequest);
 
         return new ResponseEntity<>(notification, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/notifications/{id}")
+    public List<NotificationResponse> getUserNotifications(@PathVariable UUID userId) {
+        List<Notification> notifications = notificationService.findAllByUser(userId);
+
+        return notifications.stream()
+                .map(NotificationResponse::new)
+                .toList();
     }
 
 }

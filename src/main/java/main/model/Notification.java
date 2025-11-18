@@ -45,4 +45,7 @@ public class Notification {
     @ManyToOne(optional = false)
     @JoinColumn(name = "receiver", referencedColumnName = "id")
     private User receiver;
+
+    @Column(name = "completed")
+    private boolean completed;
 }
