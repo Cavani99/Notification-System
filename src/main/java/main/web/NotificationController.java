@@ -44,12 +44,20 @@ public class NotificationController {
     }
 
     @GetMapping("/notifications/{id}")
-    public List<NotificationResponse> getUserNotifications(@PathVariable UUID userId) {
-        List<Notification> notifications = notificationService.findAllByUser(userId);
+    public List<NotificationResponse> getUserNotifications(@PathVariable("id") UUID userId) {
+        User user = userService.findById(userId);
+        List<Notification> notifications = notificationService.findAllByUser(user.getId());
 
         return notifications.stream()
                 .map(NotificationResponse::new)
                 .toList();
+    }
+
+    @GetMapping("/notification/{id}")
+    public NotificationResponse getNotification(@PathVariable("id") UUID id) {
+        Notification notification = notificationService.findById(id);
+
+        return new NotificationResponse(notification);
     }
 
 }
