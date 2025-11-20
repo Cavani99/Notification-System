@@ -20,6 +20,8 @@ public class NotificationResponse {
     private NotificationType type;
     private LocalDateTime createdOn;
     private UUID sender;
+    private boolean completed;
+    private boolean seen;
 
     public NotificationResponse(Notification notification) {
         this.id = notification.getId();
@@ -28,6 +30,8 @@ public class NotificationResponse {
         this.link = notification.getLink();
         this.type = notification.getType();
         this.createdOn = notification.getCreatedOn();
-        this.sender = notification.getSender() != null ? notification.getSender().getId() : null;
+        this.sender = notification.getSender() != null ? notification.getSender().getUserId() : null;
+        this.completed = notification.isCompleted();
+        this.seen = notification.isSeen();
     }
 }

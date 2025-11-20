@@ -48,4 +48,7 @@ public class Notification {
 
     @Column(name = "completed")
     private boolean completed;
+
+    @Column(name = "seen", nullable = false)
+    private boolean seen = false;
 }

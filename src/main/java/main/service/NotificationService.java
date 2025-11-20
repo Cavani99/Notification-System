@@ -7,6 +7,7 @@ import main.repository.UserRepository;
 import main.web.dto.CreateNotificationRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,6 +35,7 @@ public class NotificationService {
         notification.setLink(createNotificationRequest.getLink());
         notification.setType(createNotificationRequest.getType());
         notification.setCompleted(false);
+        notification.setCreatedOn(LocalDateTime.now());
 
         if (createNotificationRequest.getSenderId() != null) {
             Optional<User> sender = userRepository.findByUserId(createNotificationRequest.getSenderId());
