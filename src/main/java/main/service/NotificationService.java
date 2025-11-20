@@ -27,6 +27,12 @@ public class NotificationService {
         return notificationRepository.findById(id).orElseThrow(() -> new RuntimeException("Notification does not exist!"));
     }
 
+    public boolean exists(UUID id) {
+        Optional<Notification> notification = notificationRepository.findById(id);
+
+        return notification.isPresent();
+    }
+
     public Notification addNotification(CreateNotificationRequest createNotificationRequest) {
         Notification notification = new Notification();
 
@@ -68,5 +74,10 @@ public class NotificationService {
 
     public List<Notification> findAllByUser(UUID userId) {
         return notificationRepository.findAllByReceiverId(userId);
+    }
+
+    public void removeNotification(UUID id) {
+        Notification notification = findById(id);
+        notificationRepository.delete(notification);
     }
 }

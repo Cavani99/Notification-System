@@ -22,6 +22,7 @@ public class NotificationResponse {
     private UUID sender;
     private boolean completed;
     private boolean seen;
+    private String linkTitle;
 
     public NotificationResponse(Notification notification) {
         this.id = notification.getId();
@@ -33,5 +34,6 @@ public class NotificationResponse {
         this.sender = notification.getSender() != null ? notification.getSender().getUserId() : null;
         this.completed = notification.isCompleted();
         this.seen = notification.isSeen();
+        this.linkTitle = notification.getLinkTitle();
     }
 }

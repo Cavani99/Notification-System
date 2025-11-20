@@ -60,4 +60,14 @@ public class NotificationController {
         return new NotificationResponse(notification);
     }
 
+    @DeleteMapping("/notification/{id}")
+    public ResponseEntity<Void> removeNotification(@PathVariable("id") UUID id) {
+        notificationService.removeNotification(id);
+        if (notificationService.exists(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
 }

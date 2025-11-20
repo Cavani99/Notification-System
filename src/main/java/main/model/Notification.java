@@ -30,6 +30,9 @@ public class Notification {
     @Column(name = "link")
     private String link;
 
+    @Column(name = "link_title")
+    private String linkTitle;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     @NotNull
