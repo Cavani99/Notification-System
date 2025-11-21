@@ -39,6 +39,7 @@ public class NotificationController {
     @PostMapping("/notification")
     public ResponseEntity<Notification> createNotification(@RequestBody CreateNotificationRequest createNotificationRequest) {
         Notification notification = notificationService.addNotification(createNotificationRequest);
+        notificationService.setFullLink(notification.getId());
 
         return new ResponseEntity<>(notification, HttpStatus.CREATED);
     }

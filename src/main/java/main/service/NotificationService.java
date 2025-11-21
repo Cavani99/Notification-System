@@ -39,6 +39,7 @@ public class NotificationService {
         notification.setTitle(createNotificationRequest.getTitle());
         notification.setMessage(createNotificationRequest.getMessage());
         notification.setLink(createNotificationRequest.getLink());
+        notification.setLinkTitle(createNotificationRequest.getLinkTitle());
         notification.setType(createNotificationRequest.getType());
         notification.setCompleted(false);
         notification.setCreatedOn(LocalDateTime.now());
@@ -64,6 +65,19 @@ public class NotificationService {
         notification.setReceiver(receiver.get());
 
         return notificationRepository.save(notification);
+    }
+
+    public void setFullLink(UUID id) {
+        Notification notification = findById(id);
+
+        if (notification.getTitle().equals("Friend Invitation!")) {
+            String link = notification.getLink();
+            link += "/" + notification.getId();
+
+            notification.setLink(link);
+
+            notificationRepository.save(notification);
+        }
     }
 
     public void completeNotification(UUID id) {
