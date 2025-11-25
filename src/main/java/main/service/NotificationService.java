@@ -90,6 +90,10 @@ public class NotificationService {
         return notificationRepository.findAllByReceiverId(userId);
     }
 
+    public List<Notification> getNotificationsByTitle(String title) {
+        return notificationRepository.findAllByTitle(title);
+    }
+
     public void removeNotification(UUID id) {
         Notification notification = findById(id);
         notificationRepository.delete(notification);

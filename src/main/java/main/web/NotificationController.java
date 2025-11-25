@@ -54,6 +54,15 @@ public class NotificationController {
                 .toList();
     }
 
+    @GetMapping("/notifications/title/{title}")
+    public List<NotificationResponse> getNotificationsByTitle(@PathVariable("title") String title) {
+        List<Notification> notifications = notificationService.getNotificationsByTitle(title);
+
+        return notifications.stream()
+                .map(NotificationResponse::new)
+                .toList();
+    }
+
     @GetMapping("/notification/{id}")
     public NotificationResponse getNotification(@PathVariable("id") UUID id) {
         Notification notification = notificationService.findById(id);
