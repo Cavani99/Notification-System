@@ -7,6 +7,8 @@ import main.service.UserService;
 import main.web.dto.CreateNotificationRequest;
 import main.web.dto.CreateUserRequest;
 import main.web.dto.NotificationResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +25,19 @@ public class NotificationController {
 
     private final UserService userService;
 
+    private final Logger logger;
+
     @Autowired
     public NotificationController(NotificationService notificationService, UserService userService) {
         this.notificationService = notificationService;
         this.userService = userService;
+        this.logger = LoggerFactory.getLogger(NotificationController.class);
     }
 
     @PostMapping("/user")
     public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest) {
         User user = userService.addUser(createUserRequest);
+        logger.info("User {} added in the notification api!", createUserRequest.getUsername());
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -40,6 +46,7 @@ public class NotificationController {
     public ResponseEntity<Notification> createNotification(@RequestBody CreateNotificationRequest createNotificationRequest) {
         Notification notification = notificationService.addNotification(createNotificationRequest);
         notificationService.setFullLink(notification.getId());
+        logger.info("Notification for {} created!", createNotificationRequest.getTitle());
 
         return new ResponseEntity<>(notification, HttpStatus.CREATED);
     }
@@ -76,6 +83,7 @@ public class NotificationController {
         if (notificationService.exists(id)) {
             return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
         }
+        logger.info("Notification with id {} deleted!", id);
 
         return ResponseEntity.ok().build();
     }
