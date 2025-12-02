@@ -1,4 +1,4 @@
-package main.main;
+package main;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import main.model.Notification;

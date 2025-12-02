@@ -80,12 +80,6 @@ public class NotificationService {
         }
     }
 
-    public void completeNotification(UUID id) {
-        Notification notification = findById(id);
-        notification.setCompleted(true);
-        notificationRepository.save(notification);
-    }
-
     public List<Notification> findAllByUser(UUID userId) {
         return notificationRepository.findAllByReceiverId(userId);
     }
