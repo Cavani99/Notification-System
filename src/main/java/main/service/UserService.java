@@ -1,5 +1,6 @@
 package main.service;
 
+import main.exception.UnknownElementException;
 import main.model.User;
 import main.repository.UserRepository;
 import main.web.dto.CreateUserRequest;
@@ -20,7 +21,7 @@ public class UserService {
     }
 
     public User findById(UUID id) {
-        return userRepository.findByUserId(id).orElseThrow(() -> new RuntimeException("User does not exist!"));
+        return userRepository.findByUserId(id).orElseThrow(() -> new UnknownElementException("User does not exist!"));
     }
 
     public User addUser(CreateUserRequest createUserRequest) {

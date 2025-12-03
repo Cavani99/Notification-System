@@ -1,5 +1,6 @@
 package main.service;
 
+import main.exception.UnknownElementException;
 import main.model.Notification;
 import main.model.User;
 import main.repository.NotificationRepository;
@@ -24,7 +25,7 @@ public class NotificationService {
     }
 
     public Notification findById(UUID id) {
-        return notificationRepository.findById(id).orElseThrow(() -> new RuntimeException("Notification does not exist!"));
+        return notificationRepository.findById(id).orElseThrow(() -> new UnknownElementException("Notification does not exist!"));
     }
 
     public boolean exists(UUID id) {
