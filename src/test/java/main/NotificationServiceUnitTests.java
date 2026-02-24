@@ -1,12 +1,12 @@
 package main;
 
-import main.model.Notification;
-import main.model.NotificationType;
-import main.model.User;
-import main.repository.NotificationRepository;
-import main.repository.UserRepository;
-import main.service.NotificationService;
-import main.web.dto.CreateNotificationRequest;
+import project.model.Notification;
+import project.model.NotificationType;
+import project.model.User;
+import project.repository.NotificationRepository;
+import project.repository.UserRepository;
+import project.service.NotificationService;
+import project.event.payloads.CreateNotificationRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

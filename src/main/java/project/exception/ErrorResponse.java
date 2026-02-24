@@ -1,4 +1,4 @@
-package main.exception;
+package project.exception;
 
 public record ErrorResponse(
         String message,

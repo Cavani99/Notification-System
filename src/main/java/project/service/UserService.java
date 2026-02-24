@@ -1,9 +1,9 @@
-package main.service;
+package project.service;
 
-import main.exception.UnknownElementException;
-import main.model.User;
-import main.repository.UserRepository;
-import main.web.dto.CreateUserRequest;
+import project.exception.UnknownElementException;
+import project.model.User;
+import project.repository.UserRepository;
+import project.event.payloads.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

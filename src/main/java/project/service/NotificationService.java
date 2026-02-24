@@ -1,11 +1,11 @@
-package main.service;
+package project.service;
 
-import main.exception.UnknownElementException;
-import main.model.Notification;
-import main.model.User;
-import main.repository.NotificationRepository;
-import main.repository.UserRepository;
-import main.web.dto.CreateNotificationRequest;
+import project.exception.UnknownElementException;
+import project.model.Notification;
+import project.model.User;
+import project.repository.NotificationRepository;
+import project.repository.UserRepository;
+import project.event.payloads.CreateNotificationRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

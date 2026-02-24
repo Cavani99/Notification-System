@@ -1,13 +1,13 @@
 package main;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import main.model.Notification;
-import main.model.User;
-import main.service.NotificationService;
-import main.service.UserService;
-import main.web.NotificationController;
-import main.web.dto.CreateNotificationRequest;
-import main.web.dto.CreateUserRequest;
+import project.model.Notification;
+import project.model.User;
+import project.service.NotificationService;
+import project.service.UserService;
+import project.web.NotificationController;
+import project.event.payloads.CreateNotificationRequest;
+import project.event.payloads.CreateUserRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

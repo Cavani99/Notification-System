@@ -1,12 +1,12 @@
-package main.web;
+package project.web;
 
-import main.model.Notification;
-import main.model.User;
-import main.service.NotificationService;
-import main.service.UserService;
-import main.web.dto.CreateNotificationRequest;
-import main.web.dto.CreateUserRequest;
-import main.web.dto.NotificationResponse;
+import project.model.Notification;
+import project.model.User;
+import project.service.NotificationService;
+import project.service.UserService;
+import project.event.payloads.CreateNotificationRequest;
+import project.event.payloads.CreateUserRequest;
+import project.event.payloads.NotificationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

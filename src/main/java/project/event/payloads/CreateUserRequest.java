@@ -1,4 +1,4 @@
-package main.web.dto;
+package project.event.payloads;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

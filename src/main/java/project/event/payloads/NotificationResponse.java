@@ -1,8 +1,8 @@
-package main.web.dto;
+package project.event.payloads;
 
 import lombok.*;
-import main.model.Notification;
-import main.model.NotificationType;
+import project.model.Notification;
+import project.model.NotificationType;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

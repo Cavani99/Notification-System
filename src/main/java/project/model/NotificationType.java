@@ -1,4 +1,4 @@
-package main.model;
+package project.model;
 
 public enum NotificationType {
 

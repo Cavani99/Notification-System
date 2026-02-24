@@ -1,8 +1,8 @@
-package main.web.dto;
+package project.event.payloads;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import main.model.NotificationType;
+import project.model.NotificationType;
 import org.hibernate.validator.constraints.URL;
 
 import java.util.UUID;

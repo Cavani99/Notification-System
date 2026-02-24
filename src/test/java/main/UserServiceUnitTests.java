@@ -1,9 +1,9 @@
 package main;
 
-import main.model.User;
-import main.repository.UserRepository;
-import main.service.UserService;
-import main.web.dto.CreateUserRequest;
+import project.model.User;
+import project.repository.UserRepository;
+import project.service.UserService;
+import project.event.payloads.CreateUserRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
