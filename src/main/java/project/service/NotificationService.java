@@ -93,4 +93,8 @@ public class NotificationService {
         Notification notification = findById(id);
         notificationRepository.delete(notification);
     }
+
+    public List<Notification> getMessagesByUserAndFriend(UUID userId, UUID friendId) {
+        return notificationRepository.getChatMessages(userId, friendId);
+    }
 }

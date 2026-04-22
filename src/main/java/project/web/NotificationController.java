@@ -88,4 +88,15 @@ public class NotificationController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/messages/{user_id}/{friend_id}")
+    public List<NotificationResponse> getChatNotificationsBetweenUsers(@PathVariable("user_id") UUID userId, @PathVariable("friend_id") UUID friendId) {
+        User user = userService.findById(userId);
+        User friend = userService.findById(friendId);
+        List<Notification> notifications = notificationService.getMessagesByUserAndFriend(user.getId(), friend.getId());
+
+        return notifications.stream()
+                .map(NotificationResponse::new)
+                .toList();
+    }
+
 }
