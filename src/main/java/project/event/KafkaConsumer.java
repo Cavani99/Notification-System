@@ -25,4 +25,9 @@ public class KafkaConsumer {
     public void consumeNotificationSaveEvent(CreateNotificationRequest request) {
         notificationController.createNotification(request);
     }
+
+    @KafkaListener(topics = "notification-chat-message-event.v1", groupId = "notification-system")
+    public void consumeChatMessageEvent(CreateNotificationRequest request) {
+        notificationController.createNotification(request);
+    }
 }
