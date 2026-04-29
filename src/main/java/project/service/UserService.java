@@ -24,6 +24,10 @@ public class UserService {
         return userRepository.findByUserId(id).orElseThrow(() -> new UnknownElementException("User does not exist!"));
     }
 
+    public boolean userExists(UUID userId) {
+        return userRepository.findByUserId(userId).isPresent();
+    }
+
     public User addUser(CreateUserRequest createUserRequest) {
         Optional<User> findUser = userRepository.findByUserId(createUserRequest.getId());
 
@@ -35,5 +39,12 @@ public class UserService {
         }
 
         return findUser.get();
+    }
+
+    public User saveUser(UUID userId) {
+        User user = new User();
+        user.setUserId(userId);
+
+        return userRepository.save(user);
     }
 }
