@@ -1,5 +1,6 @@
 package project.web;
 
+import project.event.payloads.NotificationMessage;
 import project.model.Notification;
 import project.model.User;
 import project.service.NotificationService;
@@ -45,10 +46,14 @@ public class NotificationController {
     @PostMapping("/notification")
     public ResponseEntity<Notification> createNotification(@RequestBody CreateNotificationRequest createNotificationRequest) {
         Notification notification = notificationService.addNotification(createNotificationRequest);
-        notificationService.setFullLink(notification.getId());
-        logger.info("Notification for {} created!", createNotificationRequest.getTitle());
+        if (notification != null) {
+            notificationService.setFullLink(notification.getId());
+            logger.info("Notification for {} created!", createNotificationRequest.getTitle());
 
-        return new ResponseEntity<>(notification, HttpStatus.CREATED);
+            return new ResponseEntity<>(notification, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/notifications/{id}")
@@ -89,7 +94,7 @@ public class NotificationController {
     }
 
     @GetMapping("/messages/{user_id}/{friend_id}")
-    public List<NotificationResponse> getChatNotificationsBetweenUsers(@PathVariable("user_id") UUID userId, @PathVariable("friend_id") UUID friendId) {
+    public List<NotificationMessage> getChatNotificationsBetweenUsers(@PathVariable("user_id") UUID userId, @PathVariable("friend_id") UUID friendId) {
         User user;
         User friend;
 
@@ -107,7 +112,7 @@ public class NotificationController {
         List<Notification> notifications = notificationService.getMessagesByUserAndFriend(user.getId(), friend.getId());
 
         return notifications.stream()
-                .map(NotificationResponse::new)
+                .map(NotificationMessage::new)
                 .toList();
     }
 
