@@ -1,8 +1,11 @@
 package project.event;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import project.event.payloads.CreateNotificationRequest;
 import project.event.payloads.CreateUserRequest;
+import project.model.Notification;
+import project.service.NotificationService;
 import project.web.NotificationController;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -10,10 +13,15 @@ import org.springframework.stereotype.Component;
 @Component
 @ConditionalOnProperty(name = "kafka.enabled", havingValue = "true")
 public class KafkaConsumer {
+    private final SimpMessagingTemplate messagingTemplate;
     private final NotificationController notificationController;
 
-    public KafkaConsumer(NotificationController notificationController) {
+    private final NotificationService notificationService;
+
+    public KafkaConsumer(SimpMessagingTemplate messagingTemplate, NotificationController notificationController, NotificationService notificationService) {
+        this.messagingTemplate = messagingTemplate;
         this.notificationController = notificationController;
+        this.notificationService = notificationService;
     }
 
     @KafkaListener(topics = "user-added-event.v1", groupId = "notification-system")
@@ -26,8 +34,18 @@ public class KafkaConsumer {
         notificationController.createNotification(request);
     }
 
-    @KafkaListener(topics = "notification-chat-message-event.v1", groupId = "notification-system")
+    @KafkaListener(topics = "notification-chat-message-event.v1")
     public void consumeChatMessageEvent(CreateNotificationRequest request) {
-        notificationController.createNotification(request);
+        Notification notification = notificationService.addNotification(request);
+
+        messagingTemplate.convertAndSend(
+                "/queue/messages/" + request.getReceiverId(),
+                notification
+        );
+
+        messagingTemplate.convertAndSend(
+                "/queue/messages/" + request.getSenderId(),
+                notification
+        );
     }
 }
