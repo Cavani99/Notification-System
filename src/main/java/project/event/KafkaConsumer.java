@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import project.event.payloads.CreateNotificationRequest;
 import project.event.payloads.CreateUserRequest;
+import project.event.payloads.NotificationMessage;
 import project.model.Notification;
 import project.service.NotificationService;
 import project.web.NotificationController;
@@ -37,15 +38,16 @@ public class KafkaConsumer {
     @KafkaListener(topics = "notification-chat-message-event.v1")
     public void consumeChatMessageEvent(CreateNotificationRequest request) {
         Notification notification = notificationService.addNotification(request);
+        NotificationMessage notificationMessage = new NotificationMessage(notification);
 
         messagingTemplate.convertAndSend(
                 "/queue/messages/" + request.getReceiverId(),
-                notification
+                notificationMessage
         );
 
         messagingTemplate.convertAndSend(
                 "/queue/messages/" + request.getSenderId(),
-                notification
+                notificationMessage
         );
     }
 }
