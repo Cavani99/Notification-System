@@ -40,13 +40,15 @@ public class KafkaConsumer {
         Notification notification = notificationService.addNotification(request);
         NotificationMessage notificationMessage = new NotificationMessage(notification);
 
-        messagingTemplate.convertAndSend(
-                "/queue/messages/" + request.getReceiverId(),
+        messagingTemplate.convertAndSendToUser(
+                request.getSenderEmail(),
+                "/queue/messages",
                 notificationMessage
         );
 
-        messagingTemplate.convertAndSend(
-                "/queue/messages/" + request.getSenderId(),
+        messagingTemplate.convertAndSendToUser(
+                request.getReceiverEmail(),
+                "/queue/messages",
                 notificationMessage
         );
     }

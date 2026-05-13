@@ -30,4 +30,8 @@ public class CreateNotificationRequest {
     private UUID senderId;
 
     private UUID receiverId;
+
+    private String senderEmail;
+
+    private String receiverEmail;
 }
