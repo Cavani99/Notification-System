@@ -23,7 +23,7 @@ public class Notification {
     @NotNull
     private String title;
 
-    @Column(name = "message")
+    @Column(name = "message", columnDefinition = "TEXT")
     @NotNull
     private String message;
 
@@ -52,6 +52,6 @@ public class Notification {
     @Column(name = "completed")
     private boolean completed;
 
-    @Column(name = "seen", nullable = false)
-    private boolean seen = false;
+    @Column(name = "seen", nullable = false, columnDefinition = "false")
+    private boolean seen;
 }
